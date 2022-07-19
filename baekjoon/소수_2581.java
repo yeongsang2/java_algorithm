@@ -18,7 +18,7 @@ public class 소수_2581 {
         for(int i = m ; m < n+1; m++) {
             checkPrime(m);
         }
-        list.
+
         if(list.isEmpty()){
             System.out.println(-1);
         }else {
