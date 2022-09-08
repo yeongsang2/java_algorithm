@@ -18,9 +18,9 @@ public class house_2667 {
     public static int houseNumber = 0;
 
     public static int n;
-    //row  상 하 좌 우
+    //x  상 하 좌 우
     public static int[] dx = {0,0,-1,1};
-    //colum 상 하 좌 우
+    //y 상 하 좌 우
     public static int[] dy = {1,-1,0,0};
 
     public static void main(String[] args) throws IOException {
