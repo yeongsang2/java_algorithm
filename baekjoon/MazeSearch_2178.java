@@ -3,6 +3,8 @@ package baekjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class MazeSearch_2178 {
@@ -13,6 +15,32 @@ public class MazeSearch_2178 {
     public static int visited[][];
     public static int[] dr = {-1, 1, 0,0}; //상 하 좌 우
     public static int[] dc = {0,0,-1,1};
+
+    public static class Point{
+        int r;
+        int c;
+
+        public Point(int r, int c) {
+            this.r = r;
+            this.c = c;
+        }
+
+        public int getR() {
+            return r;
+        }
+
+        public void setR(int r) {
+            this.r = r;
+        }
+
+        public int getC() {
+            return c;
+        }
+
+        public void setC(int c) {
+            this.c = c;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
 
@@ -33,35 +61,31 @@ public class MazeSearch_2178 {
             }
         }
 
-        dfs(0,0 ,1);
-        System.out.println(min);
+        bfs();
+        System.out.println(visited[n-1][m-1]+1);
     }
 
-    public static void dfs(int r, int c, int depth){
+    public static void bfs(){
 
-//        System.out.println(r + " "+ c);
-        visited[r][c] = 1; //방ㅁ누처리
-        if(r == n-1 && c == m-1){
-            // 도착
-//            System.out.println("도착");
-//            System.out.println(depth);
-            min = Math.min(min, depth);
-            return;
-        }
+        Queue<Point> queue= new LinkedList<>();
+        queue.add(new Point(0,0));
 
-        for(int i = 0; i<4 ; i++){
+        while(!queue.isEmpty()){
+            Point poll = queue.poll();
+            int r = poll.getR();
+            int c= poll.getC();
+            for(int i =0 ; i<4 ; i++){
+                int mr = r + dr[i];
+                int mc = c + dc[i];
 
-            int mr = r + dr[i];
-            int mc = c + dc[i];
+                if(mr >= 0 && mc >=0 && mr< n && mc <m && board[mr][mc] == 1 && visited[mr][mc] == 0){
+                    queue.add(new Point(mr, mc));
+                    visited[mr][mc] += visited[r][c] +1;
+                }
 
-            if(mr >= 0  && mr < n  && mc >= 0 && mc < m && visited[mr][mc] ==  0 && board[mr][mc] == 1){
-                dfs(mr,mc,depth+1);
-                visited[mr][mc] = 0;
             }
-
         }
 
-        return;
     }
     public static void init(){
         for(int i = 0 ; i< n ; i++){
