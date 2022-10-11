@@ -3,14 +3,15 @@ package baekjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class rgb_distance_1149 {
 
     static int n;
     static int[][] cost;
+    static int[][] dp;
     static int min = Integer.MAX_VALUE;
-    static int minTmp;
 
     public static void main(String[] args) throws IOException {
         // 조건 1번집의 색 != 2번 집의 색
@@ -20,6 +21,7 @@ public class rgb_distance_1149 {
         StringTokenizer st;
         n = Integer.parseInt(br.readLine()); // 집의 수
         cost = new int[1001][n+1];
+        dp = new int[1001][3];
 
         for(int i=1 ;i< n+1 ;i++){ //1번집부터 시작
             st = new StringTokenizer(br.readLine());
@@ -27,34 +29,21 @@ public class rgb_distance_1149 {
             cost[i][1] = Integer.parseInt(st.nextToken());
             cost[i][2] = Integer.parseInt(st.nextToken());
         }
-        for(int i=0; i<3; i++) {
-            dfs(0,i,cost[0][i]);
+        dp[1][0] = cost[1][0];
+        dp[1][1] = cost[1][1];
+        dp[1][2] = cost[1][2];
+
+
+        for(int i=2 ; i< n+1; i++){
+
+            dp[i][0] = Math.min(dp[i-1][1], dp[i-1][2]) + cost[i][0];
+            dp[i][1] = Math.min(dp[i-1][0], dp[i-1][2]) + cost[i][1];
+            dp[i][2] = Math.min(dp[i-1][0], dp[i-1][1]) + cost[i][2];
+
         }
-        System.out.println(min);
+
+        System.out.println(Math.min(Math.min(dp[n][0],dp[n][1]), dp[n][2]));
+
     }
 
-    //현재 값, 이전 색상?
-    public static void dfs(int now, int nowRGB, int minTmp){
-
-//        if(minTmp > min){ //이미 넘어섬
-//            return;
-//        }
-        if(now == n){            //집의수
-            min = Math.min(minTmp, min);
-//            System.out.println(n + " " + minTmp);
-            return;
-        }
-
-        for(int i=0;i<3;i++){
-
-            if(nowRGB == i){ //이전 색상과 곂침
-                continue;
-            }
-
-            if(minTmp + cost[now+1][i] < min) {
-                dfs(now + 1, i, minTmp + cost[now + 1][i]);
-            }
-        }
-
-    }
 }
