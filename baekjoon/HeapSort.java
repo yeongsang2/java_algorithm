@@ -81,7 +81,7 @@ public class HeapSort {
 
         while(arr[tNN].year < arr[y].year){
             swap(arr, tNN, y);
-            tNN =y;
+            tNN  =y;
             y = findLarger(arr, tNN, eNN);
             // leaf노드 쪽으로 내려가면서 값의 제자리를 찾아감
         }
