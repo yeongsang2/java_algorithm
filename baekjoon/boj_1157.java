@@ -31,7 +31,5 @@ public class boj_1157 {
             }
         }
         System.out.println(answer);
-
-
     }
 }
