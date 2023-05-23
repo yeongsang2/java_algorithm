@@ -21,7 +21,7 @@ public class featFunctino {
             }
             answer.add(count);
         }
-        return answer.stream().mapToInt(Integer::intValue).toArray();
+//        return answer.stream().mapToInt(Integer::intValue).toArray();
 
     }
 }
