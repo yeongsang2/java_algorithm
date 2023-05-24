@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class GymSuit {
     public static void main(String[] args) {
-        solution();
+//        solution();
     }
 
     public static int solution(int n, int[] lost, int[] reserve) {

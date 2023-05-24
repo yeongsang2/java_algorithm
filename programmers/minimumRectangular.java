@@ -2,7 +2,7 @@ package programmers;
 
 public class minimumRectangular {
     public static void main(String[] args) {
-        solution();
+//        solution();
     }
     public static int solution(int[][] sizes) {
         int answer = 0;
