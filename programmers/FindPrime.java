@@ -9,7 +9,7 @@ public class FindPrime {
         numberList = new String[numbers.length()];
 
         for(int i =0; i< numbers.length(); i++){
-            // numberList[i] = Character.getNumericValue(numbers.charAt(i));
+            // numberList[i] = Character.g기tNumericValue(numbers.charAt(i));
             numberList[i] = String.valueOf(numbers.charAt(i));
         }
         for(int i =0; i< numberList.length; i++){
