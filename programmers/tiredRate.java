@@ -2,7 +2,7 @@ package programmers;
 
 public class tiredRate {
     public static void main(String[] args) {
-        solution();
+//        solution();
     }
     public static int answer = -1;
     public static boolean[] check;
