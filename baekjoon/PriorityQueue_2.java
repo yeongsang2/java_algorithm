@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class PriorityQueue {
+public class PriorityQueue_2 {
 
 
     static class Issue{
