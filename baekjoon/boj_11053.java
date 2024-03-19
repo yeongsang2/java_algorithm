@@ -19,18 +19,18 @@ public class boj_11053 {
         for(int i=1; i<n+1; i++){
             array[i] = Integer.parseInt(st.nextToken());
         }
-
         dp[1] = 1;
-        for(int i=2; i<n+1; i++){
+        for(int i =2 ; i< n+1 ;i++){
 
-            for(int j=i-1 ; j > 0; j--){
-                if(array[i] > array[j]) {
+            for(int j = i-1; j >= 0 ; j--){
+                if(array[i] > array[j]){ //증가
                     dp[i] = Math.max(dp[i], dp[j]);
                 }
             }
-            dp[i] += 1;
+            dp[i] +=1;
         }
-        for(int i=1 ; i<n+1;i++){
+
+        for(int i =1 ; i< dp.length; i++){
             max = Math.max(max, dp[i]);
         }
         System.out.println(max);

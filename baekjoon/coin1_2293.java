@@ -31,9 +31,8 @@ public class coin1_2293 {
 
         dp[0] =1;
         for(int i =0; i< n; i++){
-            for(int j =1 ; j <=k; j++){
-                if( j>= coin[i])
-                    dp[j] = dp[j] + dp[j - coin[i]];
+            for(int j =coin[i] ; j <=k; j++) {
+                dp[j] = dp[j] + dp[j - coin[i]];
             }
         }
 

@@ -27,15 +27,13 @@ public class boj_2579 {
         if(n == 1){
             System.out.println(score[1]);
         }else if(n == 2){
-            System.out.println(score[1] + score[2]);
+            System.out.println(score[1]+ score[2]);
         }else {
-            dp[0] = 0;
             dp[1] = score[1];
-            dp[2] = dp[1] + score[2];
-            for (int i = 3; i < n + 1; i++) {
-                dp[i] = Math.max(dp[i - 3] + score[i - 1], dp[i - 2]) + score[i];
+            dp[2] = score[1] + score[2];
+            for(int i =3 ; i < n+1; i++){
+                dp[i] = Math.max( dp[i-3 ] +score[i-1] + score[i], dp[i-2] +score[i]);
             }
-
             System.out.println(dp[n]);
         }
     }
