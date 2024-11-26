@@ -1,15 +1,13 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-
-    static class Paper {
+    static class MyPaper {
         int idx;
         int priority;
-        public Paper(int idx, int priority) {
+        public MyPaper(int idx, int priority) {
             this.idx = idx;
             this.priority = priority;
         }
@@ -25,36 +23,31 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int n = Integer.parseInt(st.nextToken()); // 문서 수
             int m = Integer.parseInt(st.nextToken()); // 궁금한 문서 위치
-            int max = Integer.MIN_VALUE;
+            int[] priorityArr = new int[n+1];
             int answer = 0;
 
-            Deque<Paper> queue = new ArrayDeque<>();
+            Deque<MyPaper> queue = new ArrayDeque<>();
+            Queue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
 
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
                 int priority = Integer.parseInt(st.nextToken());
-                max = Math.max(max, priority);
-                queue.add(new Paper(j, priority));
+                queue.add(new MyPaper(j, priority));
+                priorityQueue.add(priority);
             }
 
-            int cnt =1;
+            int cnt =0;
             while(!queue.isEmpty()){
-                Paper now = queue.pollFirst();
-                boolean tag = true;
-                for(Paper p : queue){
-                    if(now.priority < p.priority){
-                        tag = false;
-                        break;
-                    }
-                }
-                if(tag){
-                    if(now.idx == m){
+                MyPaper poll = queue.poll();
+                if(poll.priority >= priorityQueue.peek()){
+                    cnt++;
+                    priorityQueue.poll();
+                    if(poll.idx == m){
                         answer = cnt;
                         break;
                     }
-                    cnt++;
                 }else{
-                    queue.addLast(now);
+                    queue.addLast(poll);
                 }
             }
             System.out.println(answer);
