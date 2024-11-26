@@ -2,10 +2,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -29,9 +26,9 @@ public class Main {
             int n = Integer.parseInt(st.nextToken()); // 문서 수
             int m = Integer.parseInt(st.nextToken()); // 궁금한 문서 위치
             int max = Integer.MIN_VALUE;
-            int[] answer = new int[n];
+            int answer = 0;
 
-            Deque<Paper> queue = new LinkedList<>();
+            Deque<Paper> queue = new ArrayDeque<>();
 
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
@@ -43,7 +40,6 @@ public class Main {
             int cnt =1;
             while(!queue.isEmpty()){
                 Paper now = queue.pollFirst();
-//                System.out.println(now.idx);
                 boolean tag = true;
                 for(Paper p : queue){
                     if(now.priority < p.priority){
@@ -52,16 +48,16 @@ public class Main {
                     }
                 }
                 if(tag){
-                    answer[now.idx] = cnt;
+                    if(now.idx == m){
+                        answer = cnt;
+                        break;
+                    }
                     cnt++;
-                    if(now.idx == m) break;
                 }else{
                     queue.addLast(now);
                 }
             }
-//            System.out.println(cnt);
-            System.out.println(answer[m]);
-//            System.out.println();
+            System.out.println(answer);
         }
     }
 }
