@@ -8,25 +8,22 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int m = Integer.parseInt(br.readLine());
-        String s = br.readLine();
+        char[] array = br.readLine().toCharArray();
 
-        String pn = "IOI";
-        for (int i = 1; i < n; i++) {
-            pn += "OI";
-        }
-
-        int left = 0;
-        int right = 3 + 2*(n-1);
         int answer =0;
-        while(right < m+1){
-            String temp = s.substring(left, right);
-            if(!temp.equals(pn)){
-                ;
+        int count = 0;
+        for (int i = 1; i < m - 1; i++) {
+            if(array[i-1] == 'I' && array[i] == 'O' && array[i+1] == 'I'){
+                //일치
+                count++;
+                if(count == n){
+                    answer++;
+                    count--;
+                }
+                i++;
             }else{
-                answer++;
+                count=0;
             }
-            left++;
-            right++;
         }
         System.out.println(answer);
 
