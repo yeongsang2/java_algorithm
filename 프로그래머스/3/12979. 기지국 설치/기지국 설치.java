@@ -3,20 +3,18 @@ class Solution {
         
         int answer = 0;
         int point = 0;
-        for(int i = 1; i < n+1 ; i++){
-            int start = stations[point] - w;
-            int end = stations[point] + w;
-            if( start <= i && i <= end ){ // 기지국
-                i = end;
-                if(point < stations.length - 1){
-                    point++;
-                }
-            }else {
-                i = i + 2*w;
+        int i = 1;
+
+        while(i <= n) {
+            if(point < stations.length && i >= stations[point] - w) {
+                i = stations[point] + w + 1;
+                point++;
+            } else {
                 answer++;
+                i += 2*w + 1;
             }
         }
-
         return answer;
+
     }
 }
