@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,7 +39,7 @@ public class Main {
         int answer = 0;
         int left = 1;
         int right = 2;
-        while(left<= right && right != cnt){
+        while(right != cnt){
             if( (primeArr[right] - primeArr[left -1]) == n){
                 answer++;
                 right++;
