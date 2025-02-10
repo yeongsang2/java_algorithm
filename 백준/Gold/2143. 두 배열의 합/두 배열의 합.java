@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,7 +6,9 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
 
@@ -25,22 +28,22 @@ public class Main {
             arrB[i] = Integer.parseInt(st.nextToken());
         }
 
-        long[] subA = new long[(n * (n + 1)) / 2];
-        long[] subB = new long[(m * (m + 1)) / 2];
+        long[] subA = new long[(n*(n+1)) / 2];
+        long[] subB = new long[(m*(m+1)) / 2];
 
         int idx = 0;
-        for (int i = 0; i < n; i++) {
+        for(int i = 0 ; i < n ;i++){
             int temp = 0;
-            for (int j = i; j < n; j++) {
+            for(int j = i ; j < n ; j++){
                 temp += arrA[j];
                 subA[idx++] = temp;
             }
         }
 
         idx = 0;
-        for (int i = 0; i < m; i++) {
+        for(int i = 0 ; i < m ;i++){
             int temp = 0;
-            for (int j = i; j < m; j++) {
+            for(int j = i ; j < m ; j++){
                 temp += arrB[j];
                 subB[idx++] = temp;
             }
@@ -50,37 +53,37 @@ public class Main {
         Arrays.sort(subB);
 
         int left = 0;
-        int right = subB.length - 1;
+        int right = subB.length -1;
         long answer = 0;
 
-        while (left < subA.length && right >= 0) {
+        while(left < subA.length && right >= 0){
+
             long sum = subA[left] + subB[right];
 
-            if (sum == T) { // 합이 T와 같은 경우
+            if(sum ==T){ // 같음
                 long a = subA[left];
                 long b = subB[right];
 
-                long countA = 0;
-                long countB = 0;
+                long tempA = 0;
+                long tempB = 0;
 
-                // 현재 값과 같은 값의 개수 세기
-                while (left < subA.length && subA[left] == a) {
-                    countA++;
+                while(left < subA.length && subA[left] == a){
+                    tempA++;
                     left++;
                 }
-                while (right >= 0 && subB[right] == b) {
-                    countB++;
+                while(right >= 0 && subB[right] == b){
+                    tempB++;
                     right--;
                 }
-
-                answer += countA * countB;
-            } else if (sum < T) {
+                answer += tempA * tempB;
+            }else if(sum < T) {
                 left++;
-            } else {
+            }else{
                 right--;
             }
         }
-
         System.out.println(answer);
+
+
     }
 }
