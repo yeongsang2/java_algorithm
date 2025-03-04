@@ -17,33 +17,21 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int answer = 0;
         for (int i = 0; i < n - 1; i++) {
             int now = arr[i];
 
         }
-        int point = 0;
-        while(point < n){
 
-            int tempMax = arr[point];
-            int nextPoint = 0;
-            for (int i = point + 1; i < n; i++) {
-                if(tempMax < arr[i]){
-                    nextPoint = i;
-                    tempMax = arr[i];
-                }
-            }
-
-
-            if(nextPoint != 0){
-                for (int i = point; i < nextPoint; i++) {
-                    answer += arr[nextPoint] - arr[i];
-                }
-                point = nextPoint;
+        int maxPrice = 0;
+        int answer = 0;
+        for (int i = n - 1; i >= 0 ; i--) {
+            if(maxPrice < arr[i]){ // 최대값 갱신
+                maxPrice = arr[i];
             }else{
-                point++;
+                answer += (maxPrice - arr[i]);
             }
         }
+
         System.out.println(answer);
     }
 }
