@@ -2,28 +2,17 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
 
-    static class Truck{
-        int weight;
-        int time;
-        public Truck(int weight, int time){
-            this.weight = weight;
-            this.time = time;
-        }
-    }
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int n = Integer.parseInt(st.nextToken()); // 트럭수
-        int w = Integer.parseInt(st.nextToken()); // 길이
-        int l = Integer.parseInt(st.nextToken()); // 최대하중
+        int n = Integer.parseInt(st.nextToken()); // 트럭 수
+        int w = Integer.parseInt(st.nextToken()); // 다리 길이
+        int l = Integer.parseInt(st.nextToken()); // 최대 하중
 
         int[] truckArr = new int[n];
         st = new StringTokenizer(br.readLine());
@@ -31,33 +20,30 @@ public class Main {
             truckArr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int pointer = 0;
         int time = 0;
         int nowSum = 0;
-        Queue<Truck> queue = new LinkedList<>();
-        while(true){
-            if(pointer == n && queue.isEmpty())break;
+        int pointer = 0;
+        int[] bridge = new int[w];  // 다리 위 상태를 배열로 관리
+        int bridgeIndex = 0;
+
+        while (pointer < n || nowSum > 0) {
             time++;
-            if(queue.isEmpty() && pointer < n){
-                queue.add(new Truck(truckArr[pointer], w));
+
+            // 다리에서 트럭이 나감
+            nowSum -= bridge[bridgeIndex];
+            bridge[bridgeIndex] = 0;  // 나간 자리 초기화
+
+            // 다음 트럭이 다리에 올라갈 수 있는지 확인
+            if (pointer < n && nowSum + truckArr[pointer] <= l) {
+                bridge[bridgeIndex] = truckArr[pointer];
                 nowSum += truckArr[pointer];
                 pointer++;
-            }else{
-                if(pointer < n && nowSum + truckArr[pointer] <= l){
-                    queue.add(new Truck(truckArr[pointer], w));
-                    nowSum += truckArr[pointer];
-                    pointer++;
-                }
             }
 
-            for(Truck truck : queue){
-                truck.time--;
-            }
-            if(queue.peek().time == 0){
-                Truck poll = queue.poll();
-                nowSum -= poll.weight;
-            }
+            // 다음 위치로 이동 (원형 큐처럼 동작)
+            bridgeIndex = (bridgeIndex + 1) % w;
         }
-        System.out.println(time + 1);
+
+        System.out.println(time);
     }
 }
