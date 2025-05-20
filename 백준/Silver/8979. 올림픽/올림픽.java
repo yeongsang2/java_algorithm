@@ -39,7 +39,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-
         int teamCnt = Integer.parseInt(st.nextToken());
         int targetTeam = Integer.parseInt(st.nextToken());
 
@@ -58,14 +57,19 @@ public class Main {
 
         int order = 0;
         Team prevTeam = null;
+        int commonTemp = 1;
         for (int i = 0; i < teamCnt; i++) {
             Team team = list.get(i);
             if(prevTeam != null){
-                if(prevTeam.gold == team.gold && prevTeam.silver == team.silver && prevTeam.brown == team.brown){
+                if(prevTeam.gold == team.gold
+                        && prevTeam.silver == team.silver
+                        && prevTeam.brown == team.brown){
+                    commonTemp++;
                     ;
                 }else{
-
-                    order++;
+                    order+= commonTemp;
+                    commonTemp = 1;
+//                    order++;
                 }
             }else{
                 order++;
@@ -74,8 +78,6 @@ public class Main {
             if(team.teamNumber == targetTeam){
                 System.out.println(order);
             }
-
         }
-
     }
 }
